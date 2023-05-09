@@ -8,6 +8,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{9F37E1BC-A084-4DBD-8369-724147DBFCA7}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		install-libs.md = install-libs.md
+		readme.md = readme.md
 	EndProjectSection
 EndProject
 Global
