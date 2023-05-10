@@ -23,21 +23,7 @@
 
 typedef unsigned int uint;
 
-//extern GLuint InitShader(const char* vShaderFile, const char* fShaderFile);
-
-// Implement the following...
-
 extern const char* WINDOW_TITLE;
 extern const double FRAME_RATE_MS;
 extern const int STARTING_WINDOW_WIDTH;
 extern const int STARTING_WINDOW_HEIGHT;
-//
-//extern void init(void);
-//extern void update(void);
-//extern void display(void);
-//extern void keyboardPressed(unsigned char key, int x, int y);
-//extern void keyboardReleased(unsigned char key, int x, int y);
-//extern void mouse(int button, int state, int x, int y);
-//extern void reshape(int width, int height);
-
-

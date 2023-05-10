@@ -1,5 +1,9 @@
 ﻿# Install libs
 
+If you don't already have VCPKG installed then follow these [steps](https://vcpkg.io/en/getting-started.html) to install it.
+
+---
+
 Follow steps below to install all packages.
 
 ## Visual Studio Integration

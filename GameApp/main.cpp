@@ -83,7 +83,7 @@ int main()
 
 	// build and compile shaders
 	// -------------------------
-	Shader ourShader("vshader.glsl", "fshader.glsl");
+	Shader ourShader({ ShaderFileInfo("backpack.frag.glsl"), ShaderFileInfo("backpack.vert.glsl") });
 
 	// load models
 	// -----------

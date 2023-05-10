@@ -163,8 +163,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fshader.glsl" />
-    <None Include="vshader.glsl" />
+    <None Include="backpack.frag.glsl" />
+    <None Include="backpack.vert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
