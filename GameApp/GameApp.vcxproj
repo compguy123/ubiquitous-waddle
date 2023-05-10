@@ -165,14 +165,14 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-
+    <None Include="backpack.frag.glsl" />
+    <None Include="backpack.vert.glsl" />
     <None Include="floorFShader.glsl" />
     <None Include="floorTcs.glsl" />
     <None Include="floorTes.glsl" />
     <None Include="floorVShader.glsl" />
     <None Include="fshader.glsl" />
     <None Include="vshader.glsl" />
-
   </ItemGroup>
   <ItemGroup>
     <Image Include="albedo.jpg" />
