@@ -29,7 +29,7 @@ void Mesh::Draw(const Shader& shader)
 
 	// draw mesh
 	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, Indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, (int)Indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
 

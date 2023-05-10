@@ -83,8 +83,10 @@ int main()
 	// -----------------------------
 	glEnable(GL_DEPTH_TEST);
 
+
 	//floor
 	Floor* myFloor = new Floor();
+
 
 
 	//// draw in wireframe

@@ -61,10 +61,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fshader.glsl">
+    <None Include="Backpack.frag.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="vshader.glsl">
+    <None Include="Backpack.vert.glsl">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="floorFShader.glsl">
