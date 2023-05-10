@@ -5,6 +5,7 @@
 #include "camera.hpp"
 #include "shader.hpp"
 #include "model.hpp"
+#include "Floor.h"
 
 #include <stb_image.h>
 
@@ -16,6 +17,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -81,20 +83,19 @@ int main()
 	// -----------------------------
 	glEnable(GL_DEPTH_TEST);
 
-	// build and compile shaders
-	// -------------------------
-	Shader ourShader({ ShaderFileInfo("backpack.frag.glsl"), ShaderFileInfo("backpack.vert.glsl") });
 
-	// load models
-	// -----------
-	Model ourModel("assets/backpack/backpack.obj");
+	//floor
+	Floor* myFloor = new Floor();
+
 
 
 	//// draw in wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// render loop
-	// -----------
+	// ----------
+	
+	
 	while (!glfwWindowShouldClose(window))
 	{
 		// per-frame time logic
@@ -112,23 +113,12 @@ int main()
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// don't forget to enable shader before setting uniforms
-		ourShader.Use();
-
+		
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
-		ourShader.SetMat4("projection", projection);
-		ourShader.SetMat4("view", view);
-
-		// render the loaded model
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
-		ourShader.SetMat4("model", model);
-		ourModel.Draw(ourShader);
-
-
+		myFloor->run(projection, view);
+		
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
