@@ -87,13 +87,11 @@ int main()
 	//floor
 	//Floor* myFloor = new Floor();
 
-
 	Shader cubeShader({
-			ShaderFileInfo("backpack.vert.glsl"),
-			ShaderFileInfo("backpack.frag.glsl"),
+			{ "backpack.vert.glsl" },
+			{ "backpack.frag.glsl" },
 		});
 	Model cubeModel("assets/cube/cube.obj");
-
 
 	//// draw in wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

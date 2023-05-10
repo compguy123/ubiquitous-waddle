@@ -200,7 +200,7 @@ Procfile text
 *.slo binary
 *.lo binary
 *.o binary
-*.obj binary
+*.obj text
 *.gch binary
 *.pch binary
 *.so binary
