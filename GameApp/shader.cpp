@@ -46,13 +46,18 @@ ShaderFileInfo::ShaderFileInfo(const string_view& path, optional<int> type)
 		string upperPath(path);
 		transform(upperPath.begin(), upperPath.end(), upperPath.begin(), ::toupper);
 
+
 		if (upperPath.ends_with(".VERT.GLSL"))
 			type = GL_VERTEX_SHADER;
 		else if (upperPath.ends_with(".FRAG.GLSL"))
 			type = GL_FRAGMENT_SHADER;
-		else if (upperPath.ends_with(".TCONT.GLSL"))
+		else if (upperPath.ends_with(".COMP.GLSL"))
+			type = GL_COMPUTE_SHADER;
+		else if (upperPath.ends_with(".GEOM.GLSL"))
+			type = GL_GEOMETRY_SHADER;
+		else if (upperPath.ends_with(".TESC.GLSL"))
 			type = GL_TESS_CONTROL_SHADER;
-		else if (upperPath.ends_with(".TEVAL.GLSL"))
+		else if (upperPath.ends_with(".TESE.GLSL"))
 			type = GL_TESS_EVALUATION_SHADER;
 		else
 		{
