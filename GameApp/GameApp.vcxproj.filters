@@ -61,10 +61,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Backpack.frag.glsl">
+    <None Include="backpack.frag.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Backpack.vert.glsl">
+    <None Include="backpack.vert.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cube.frag.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cube.vert.glsl">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="floorFShader.glsl">
