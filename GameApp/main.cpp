@@ -1,6 +1,3 @@
-// Based on: http://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SIXTH_EDITION/CODE/CHAPTER03/WINDOWS_VERSIONS/example2.cpp
-// Modified to isolate the main program and use GLM
-
 #include "common.h"
 #include "camera.hpp"
 #include "shader.hpp"
@@ -78,6 +75,7 @@ int main()
 
 	// tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
 	stbi_set_flip_vertically_on_load(true);
+	glPatchParameteri(GL_PATCH_VERTICES, 4);
 
 	// configure global opengl state
 	// -----------------------------
@@ -88,14 +86,25 @@ int main()
 	Floor* myFloor = new Floor();
 
 
+	Shader backpackShader({
+			{ "backpack.vert.glsl" },
+			{ "backpack.frag.glsl" },
+		});
+//	Model backpackModel("assets/backpack/backpack.obj"); //TODO: figure out why creating Model objects causes the floor to not work/render
+
+	Shader cubeShader({
+		{ "cube.vert.glsl" },
+		{ "cube.frag.glsl" },
+		});
+//	Model cubeModel("assets/cube/cube.obj"); //TODO: figure out why creating Model objects causes the floor to not work/render
 
 	//// draw in wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	// render loop
 	// ----------
-	
-	
+
+
 	while (!glfwWindowShouldClose(window))
 	{
 		// per-frame time logic
@@ -113,12 +122,31 @@ int main()
 		glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		
+
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
-		myFloor->run(projection, view);
-		
+		myFloor->run(projection, view); //TODO: to render floor, comment out the cube/backpack models variables and comment out the .Draw(); calls
+
+		// view/projection transformations
+		cubeShader.Use();
+		cubeShader.SetMat4("projection", projection);
+		cubeShader.SetMat4("view", view);
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(5.0f, 0.0f, -2.5f)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+		cubeShader.SetMat4("model", model);
+		//cubeModel.Draw(cubeShader);
+		 
+		backpackShader.Use();
+		backpackShader.SetMat4("projection", projection);
+		backpackShader.SetMat4("view", view);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+		backpackShader.SetMat4("model", model);
+		//backpackModel.Draw(backpackShader);
+
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
@@ -146,6 +174,11 @@ void processInput(GLFWwindow* window)
 		camera.ProcessKeyboard(LEFT, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, deltaTime);
+
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+		camera.ProcessKeyboard(UP, deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS)
+		camera.ProcessKeyboard(DOWN, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
