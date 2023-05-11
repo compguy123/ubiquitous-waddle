@@ -85,11 +85,18 @@ int main()
 	//floor
 	Floor* myFloor = new Floor();
 
-	//Shader cubeShader({
-	//	{ "cube.vert.glsl" },
-	//	{ "cube.frag.glsl" },
-	//	});
-	//Model cubeModel("assets/cube/cube.obj");
+
+	Shader backpackShader({
+			{ "backpack.vert.glsl" },
+			{ "backpack.frag.glsl" },
+		});
+//	Model backpackModel("assets/backpack/backpack.obj"); //TODO: figure out why creating Model objects causes the floor to not work/render
+
+	Shader cubeShader({
+		{ "cube.vert.glsl" },
+		{ "cube.frag.glsl" },
+		});
+//	Model cubeModel("assets/cube/cube.obj"); //TODO: figure out why creating Model objects causes the floor to not work/render
 
 	//// draw in wireframe
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -119,17 +126,27 @@ int main()
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
-		myFloor->run(projection, view);
+		myFloor->run(projection, view); //TODO: to render floor, comment out the cube/backpack models variables and comment out the .Draw(); calls
 
-		//// view/projection transformations
-		//cubeShader.Use();
-		//cubeShader.SetMat4("projection", projection);
-		//cubeShader.SetMat4("view", view);
-		//glm::mat4 model = glm::mat4(1.0f);
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f)); // translate it down so it's at the center of the scene
-		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
-		//cubeShader.SetMat4("model", model);
+		// view/projection transformations
+		cubeShader.Use();
+		cubeShader.SetMat4("projection", projection);
+		cubeShader.SetMat4("view", view);
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(5.0f, 0.0f, -2.5f)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+		cubeShader.SetMat4("model", model);
 		//cubeModel.Draw(cubeShader);
+		 
+		backpackShader.Use();
+		backpackShader.SetMat4("projection", projection);
+		backpackShader.SetMat4("view", view);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -2.5f)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+		backpackShader.SetMat4("model", model);
+		//backpackModel.Draw(backpackShader);
+
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
 		glfwSwapBuffers(window);
