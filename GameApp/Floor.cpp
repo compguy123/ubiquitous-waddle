@@ -1,7 +1,5 @@
 #include "floor.h"
 
-
-
 const int size = 4;
 
 std::string readText(const char* textFile)
@@ -20,9 +18,7 @@ std::string readText(const char* textFile)
 	throw(errno);
 }
 
-
 Floor::Floor() {
-
 	point4 points[size] = {
 		point4(-0.5, 0, .5, 1.0),
 		point4(0.5, 0, .5, 1.0),
@@ -38,8 +34,6 @@ Floor::Floor() {
 		});
 
 
-
-
 	//array object
 	glGenVertexArrays(1, &arrayBuffer);
 	glBindVertexArray(arrayBuffer);
@@ -47,8 +41,7 @@ Floor::Floor() {
 
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(points),
-		points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
 
 	// position attribute
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
@@ -57,7 +50,7 @@ Floor::Floor() {
 
 	// load and create a texture 
 	// -------------------------
-	unsigned int texture;
+	uint texture;
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
 	// set the texture wrapping parameters
@@ -99,41 +92,25 @@ Floor::Floor() {
 	color4 material_ambient(1.0, 0.0, 1.0, 1.0);
 	color4 material_diffuse(1.0, 0.8, 0.0, 1.0);
 	color4 material_specular(1.0, 0.8, 0.0, 1.0);
-	float  material_shininess = 200.0;
+	float material_shininess = 200.0;
 
 	color4 ambient_product = light_ambient * material_ambient;
 	color4 diffuse_product = light_diffuse * material_diffuse;
 	color4 specular_product = light_specular * material_specular;
 
 
+	glUniform4fv(glGetUniformLocation(floorShader->Id, "AmbientProduct"), 1, glm::value_ptr(ambient_product));
+	glUniform4fv(glGetUniformLocation(floorShader->Id, "DiffuseProduct"), 1, glm::value_ptr(diffuse_product));
+	glUniform4fv(glGetUniformLocation(floorShader->Id, "SpecularProduct"), 1, glm::value_ptr(specular_product));
 
-	glUniform4fv(glGetUniformLocation(floorShader->Id, "AmbientProduct"),
-		1, glm::value_ptr(ambient_product));
-	glUniform4fv(glGetUniformLocation(floorShader->Id, "DiffuseProduct"),
-		1, glm::value_ptr(diffuse_product));
-	glUniform4fv(glGetUniformLocation(floorShader->Id, "SpecularProduct"),
-		1, glm::value_ptr(specular_product));
+	glUniform1f(glGetUniformLocation(floorShader->Id, "Shininess"), material_shininess);
 
-	glUniform1f(glGetUniformLocation(floorShader->Id, "Shininess"),
-		material_shininess);
-
-	glUniform4fv(glGetUniformLocation(floorShader->Id, "LightPosition"),
-		1, glm::value_ptr(light_position));
-
-	glUniform1f(glGetUniformLocation(floorShader->Id, "Shininess"),
-		material_shininess);
-
-
-
+	glUniform4fv(glGetUniformLocation(floorShader->Id, "LightPosition"), 1, glm::value_ptr(light_position));
 }
 
 
 void Floor::run(glm::mat4 projection, glm::mat4 view) {
 	floorShader->Use();
-
-
-
-
 	floorShader->SetInt("subdivision", 4);
 	floorShader->SetMat4("Projection", projection);
 	floorShader->SetMat4("View", view);
@@ -148,7 +125,6 @@ void Floor::run(glm::mat4 projection, glm::mat4 view) {
 			floorShader->SetMat4("ModelView", model_view);
 
 			glDrawArrays(GL_PATCHES, 0, size);
-
 		}
 	}
 }
