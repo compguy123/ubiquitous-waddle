@@ -6,7 +6,7 @@ const int size = 3;
 
 Floor::Floor() {
 
-	point4 points[3] = {
+	point4 points[size] = {
 	point4(-0.5, 0, .5, 1.0),
 	point4(0.5, 0, .5, 1.0),
 	point4(0.5, 0, -.5, 1.0),
@@ -14,7 +14,7 @@ Floor::Floor() {
 
 	};
 
-	floorShader = new Shader({ ShaderFileInfo("floorVShader.vert.glsl"), ShaderFileInfo("floorFShader.frag.glsl") });
+	floorShader = new Shader({ { "floorVShader.glsl", GL_VERTEX_SHADER }, { "floorFShader.glsl", GL_FRAGMENT_SHADER } });
 	floorShader->Use();
 	//array object
 	glGenVertexArrays(1, &arrayBuffer);

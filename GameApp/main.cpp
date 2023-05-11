@@ -85,11 +85,11 @@ int main()
 
 
 	//floor
-	//Floor* myFloor = new Floor();
+	Floor* myFloor = new Floor();
 
 	Shader cubeShader({
-			{ "backpack.vert.glsl" },
-			{ "backpack.frag.glsl" },
+			{ "cube.vert.glsl" },
+			{ "cube.frag.glsl" },
 		});
 	Model cubeModel("assets/cube/cube.obj");
 
@@ -121,7 +121,7 @@ int main()
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
-		//myFloor->run(projection, view);
+		myFloor->run(projection, view);
 
 		// view/projection transformations
 		cubeShader.Use();
