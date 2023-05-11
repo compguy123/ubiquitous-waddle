@@ -73,22 +73,17 @@
     <None Include="cube.vert.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="floorFShader.glsl">
+    <None Include="floor.frag.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="floorTcs.glsl">
+    <None Include="floor.tesc.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="floorTes.glsl">
+    <None Include="floor.tese.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="floorVShader.glsl">
+    <None Include="floor.vert.glsl">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="albedo.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

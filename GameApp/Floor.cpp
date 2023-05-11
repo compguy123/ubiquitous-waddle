@@ -24,19 +24,17 @@ std::string readText(const char* textFile)
 Floor::Floor() {
 
 	point4 points[size] = {
-	point4(-0.5, 0, .5, 1.0),
-	point4(0.5, 0, .5, 1.0),
-	point4(0.5, 0, -.5, 1.0),
-	point4(-0.5, 0, -.5, 1.0)
-
+		point4(-0.5, 0, .5, 1.0),
+		point4(0.5, 0, .5, 1.0),
+		point4(0.5, 0, -.5, 1.0),
+		point4(-0.5, 0, -.5, 1.0)
 	};
 
 	floorShader = new Shader({
-		ShaderFileInfo("floorVShader.glsl", GL_VERTEX_SHADER),
-		ShaderFileInfo("floorFShader.glsl", GL_FRAGMENT_SHADER),
-		ShaderFileInfo("floorTcs.glsl",GL_TESS_CONTROL_SHADER),
-		ShaderFileInfo("floorTes.glsl", GL_TESS_EVALUATION_SHADER)
-
+			{ "floor.vert.glsl" },
+			{ "floor.frag.glsl" },
+			{ "floor.tesc.glsl" },
+			{ "floor.tese.glsl" },
 		});
 
 
@@ -71,7 +69,7 @@ Floor::Floor() {
 	// load image, create texture and generate mipmaps
 	int width, height, channels;
 	// The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
-	unsigned char* image = stbi_load("albedo.jpg", &width, &height, &channels, STBI_rgb);
+	unsigned char* image = stbi_load("assets/floor/albedo.jpg", &width, &height, &channels, STBI_rgb);
 	if (image)
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
