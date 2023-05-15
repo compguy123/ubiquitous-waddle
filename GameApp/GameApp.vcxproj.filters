@@ -61,28 +61,29 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Backpack.frag.glsl">
+    <None Include="backpack.frag.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Backpack.vert.glsl">
+    <None Include="backpack.vert.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="floorFShader.glsl">
+    <None Include="cube.frag.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="floorTcs.glsl">
+    <None Include="cube.vert.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="floorTes.glsl">
+    <None Include="floor.frag.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="floorVShader.glsl">
+    <None Include="floor.tesc.glsl">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="albedo.jpg">
+    <None Include="floor.tese.glsl">
       <Filter>Resource Files</Filter>
-    </Image>
+    </None>
+    <None Include="floor.vert.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
