@@ -55,10 +55,10 @@ Floor::Floor() {
 	};
 
 	floorShader = new Shader({
-		ShaderFileInfo("floorVShader.glsl", GL_VERTEX_SHADER),
-		ShaderFileInfo("floorFShader.glsl", GL_FRAGMENT_SHADER),
-		ShaderFileInfo("floorTcs.glsl",GL_TESS_CONTROL_SHADER),
-		ShaderFileInfo("floorTes.glsl", GL_TESS_EVALUATION_SHADER)
+		ShaderFileInfo("floor.vert.glsl", GL_VERTEX_SHADER),
+		ShaderFileInfo("floor.frag.glsl", GL_FRAGMENT_SHADER),
+		ShaderFileInfo("floor.tesc.glsl",GL_TESS_CONTROL_SHADER),
+		ShaderFileInfo("floor.tese.glsl", GL_TESS_EVALUATION_SHADER)
 
 		});
 
@@ -78,6 +78,8 @@ Floor::Floor() {
 	// position attribute
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
 	glEnableVertexAttribArray(0);
+
+	glBindVertexArray(0);
 
 
 	// load and create a texture 
@@ -115,19 +117,6 @@ Floor::Floor() {
 	stbi_image_free(image);
 
 	floorShader->Use();
-
-
-	
-
-
-
-
-	
-	
-
-
-
-
 
 
 	// Set uniform values
@@ -174,13 +163,12 @@ Floor::Floor() {
 void Floor::run(glm::mat4 projection, glm::mat4 view) {
 	floorShader->Use();
 
-
-
-
 	floorShader->SetInt("subdivision", 4);
 	floorShader->SetMat4("Projection", projection);
 	floorShader->SetMat4("View", view);
 
+	glBindVertexArray(arrayBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	glm::mat4 trans, model_view;
 	for (int i = 3; i < 20;i++) {
 		for (int j = -5;j <= 5;j++) {
@@ -194,4 +182,7 @@ void Floor::run(glm::mat4 projection, glm::mat4 view) {
 
 		}
 	}
+	// Unbind the buffer
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
