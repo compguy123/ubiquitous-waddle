@@ -19,13 +19,43 @@ layout (quads, equal_spacing, ccw) in;
 uniform mat4 ModelView;
 uniform mat4 Projection;
 uniform int subdivision;
-uniform vec4 LightPosition;
 uniform mat4 View;
 
 
-out vec3 N, L, E;
+vec3 N, L, E;
 
 out vec2 TexCoord;
+out vec3 col;
+
+
+uniform vec3 AmbientProduct, DiffuseProduct, SpecularProduct;
+uniform float Shininess;
+
+
+uniform struct AmbientLight {
+    vec3 color;
+} ambientLight;
+
+uniform struct DirectionalLight {
+    vec3 direction;
+    vec3 color;
+} directionalLight;
+
+uniform struct PointLight {
+    vec3 position;
+    vec3 color;
+} pointLight;
+
+uniform struct SpotLight {
+    vec3 position;
+    vec3 direction;
+    float cosCutoff;
+    vec3 color;
+} spotLight;
+
+
+
+
 
 
 void main() {
@@ -39,14 +69,35 @@ vec4 pos = p1*(1-t) + p2*t;
 
 //for normals 
 vec3 vPos = (ModelView*pos).xyz;
-L = normalize( LightPosition.xyz -vPos );
+//L = normalize( LightPosition.xyz -vPos );
 E = normalize( -vPos );
 
 //floor points up 
 N= vec3(0,1,0);
 
+
+
+   vec3 outCol=  AmbientProduct* ambientLight.color;
+           
+
+    vec3 ld = normalize(directionalLight.direction);
+    ld *= -1;
+
+
+    //directional light
+     //diffuse product 
+    outCol+=clamp(DiffuseProduct * directionalLight.color * dot(N,ld),0.0f,1.0f);
+     //specular
+    vec3 reflection = (2 *dot(N, ld) *N) - ld;
+	reflection = normalize(reflection);
+	vec3 eye = (-vPos);
+    outCol+= clamp( SpecularProduct * directionalLight.color * pow(dot(reflection, eye), Shininess), 0.0f, 1.0f);
+   
+
+
 //for texture 
 TexCoord = gl_TessCoord.xy;
+col= outCol;
 
 gl_Position = Projection*View*ModelView*pos;
   

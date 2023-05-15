@@ -200,8 +200,8 @@ void Shader::SetVec3(const string_view& name, float x, float y, float z) const
 void Shader::SetVec4(const string_view& name, const vec4& value) const
 {
 	glUniform4fv(glGetUniformLocation(Id, name.data()), 1, &value[0]);
-}
 
+}
 void Shader::SetVec4(const string_view& name, float x, float y, float z, float w) const
 {
 	glUniform4f(glGetUniformLocation(Id, name.data()), x, y, z, w);
